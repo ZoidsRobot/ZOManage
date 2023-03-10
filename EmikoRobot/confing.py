@@ -33,4 +33,4 @@ def get_int_key(name, required=False):
         LOGGER.critical("No int key: " + name)
         sys.exit(2)
     else:
-        return data
+        return dataa
