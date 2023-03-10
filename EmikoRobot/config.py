@@ -2,9 +2,11 @@
 import json
 import os
 
+
 def get_user_list(config, key):
     with open("{}/EmikoRobot/{}".format(os.getcwd(), config), "r") as json_file:
         return json.load(json_file)[key]
+
 
 # Create a new config.py or rename this to config.py file in same dir and import, then extend this class.
 class Config(object):
@@ -16,24 +18,18 @@ class Config(object):
     API_HASH = "awoo"
     TOKEN = "BOT_TOKEN"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     OWNER_ID = 1606221784  # If you dont know, run the bot and do /id in your private chat with it, also an integer
-    OPENWEATHERMAP_ID = 22322
-    OWNER_USERNAME = "Scotchers"
-    BOT_USERNAME = "EmiexRobot"
-    SUPPORT_CHAT = "FumikaSupportGroup"  # Your own group for support, do not add the @
+    OWNER_USERNAME = "excrybaby"
+    IMG_BOT = "https://telegra.ph/file/c923923cb01d9c8407508.jpg"
+    SUPPORT_CHAT = "emikosupport"  # Your own group for support, do not add the @
     JOIN_LOGGER = (
-        -1001748076180
+        -1001432609692
     )  # Prints any new group the bot is added to, prints just the name and ID.
     EVENT_LOGS = (
-        -1001748076180
+        -1001150905176
     )  # Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
-    ERROR_LOG = -1001657496255
 
     # RECOMMENDED
     SQLALCHEMY_DATABASE_URI = "something://somewhat:user@hosturl:port/databasename"  # needed for any database modules
-    MONGO_DB_URI = "mongo+srv"  # needed for any database modules
-    ARQ_API_URL = "https://arq.hamker.in"
-    ARQ_API_KEY = "BCYKVF-KYQWFM-JCMORU-RZWOFQ-ARQ"
-    BOT_API_URL = "https://api.telegram.org/bot"
     LOAD = []
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
     WEBHOOK = False
@@ -72,21 +68,11 @@ class Config(object):
     AI_API_KEY = "awoo"  # For chatbot, get one from https://coffeehouse.intellivoid.net/dashboard
     BL_CHATS = []  # List of groups that you want blacklisted.
     SPAMMERS = None
-    ALLOW_CHATS = None
-    TEMP_DOWNLOAD_DIRECTORY = "./"
-    HEROKU_APP_NAME = "siap"
-    HEROKU_API_KEY = "YES"
-    REM_BG_API_KEY = "yahoo"
-    LASTFM_API_KEY = "yeah"
-    CF_API_KEY = "jk"
-    BL_CHATS = []  # List of groups that you want blacklisted.
-    SESSION_STRING = "12342"
-    STRING_SESSION = "kontol"
-    MONGO_PORT = 27017
-    MONGO_DB = "Emiko"
+
 
 class Production(Config):
     LOGGER = True
+
 
 class Development(Config):
     LOGGER = True
