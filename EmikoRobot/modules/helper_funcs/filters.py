@@ -44,4 +44,4 @@ class CustomFilters(object):
                 or message.video,
             )
 
-    has_text = _HasText()
+    has_text = _HasText(l)
