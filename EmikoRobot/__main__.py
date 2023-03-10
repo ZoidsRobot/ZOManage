@@ -104,7 +104,7 @@ buttons = [
         InlineKeyboardButton(text="💌 ɢʀᴏᴜᴘ", url="t.me/Dunia_VirtualZ"
         ),
         InlineKeyboardButton(
-            text="📣 ᴄʜᴀɴɴᴇʟ", url="t.me/ZOIDz_Robot"
+            text="📣 ᴄʜᴀɴɴᴇʟ", url="t.me/ZOIDs_Robot"
         ),
     ],
     [
@@ -368,7 +368,7 @@ def emiko_about_callback(update, context):
     if query.data == "emiko_":
         query.message.edit_text(
             text="🎧 Bantuan Perintah Music."
-            "\npilih menu di bawah ini untuk melihat bantuan Music Zenitsu ",
+            "\npilih menu di bawah ini untuk melihat bantuan Music Zoid ",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
@@ -447,17 +447,17 @@ def emiko_about_callback(update, context):
         )
     elif query.data == "emiko_support":
         query.message.edit_text(
-            text="*Bantuan Perintah Zenitsu* [📝](https://telegra.ph/file/54e99512efd4369194e16.jpg)"
-            "\npilih tombol dibawah untuk melihat bantuan perintah Zenitsu",
+            text="*ʙᴀɴᴛᴜᴀɴ ᴘᴇʀɪɴᴛᴀʜ ᴢᴏɪᴅ x ʀᴏʙᴏᴛ* [📑](https://telegra.ph/file/89c801b18024719205ed7.jpg)"
+            "\npilih tombol dibawah untuk melihat bantuan perintah Zoids",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="🎧ᴍᴜsɪᴄ", callback_data="emiko_"),
-                    InlineKeyboardButton(text="🤖ᴍᴀɴᴀɢᴇ", callback_data="help_back"),
+                    InlineKeyboardButton(text="ᴍᴜsɪᴄ", callback_data="emiko_"),
+                    InlineKeyboardButton(text="ᴍᴀɴᴀɢᴇ", callback_data="help_back"),
                  ],
                  [
-                    InlineKeyboardButton(text="⭅ ᴋᴇᴍʙᴀʟɪ", callback_data="emiko_back"),
+                    InlineKeyboardButton(text="🔙 ᴋᴇᴍʙᴀʟɪ", callback_data="emiko_back"),
                  
                  ]
                 ]
@@ -491,7 +491,7 @@ def emiko_about_callback(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="⭅ ᴋᴇᴍʙᴀʟɪ", callback_data="emiko_")
+                    InlineKeyboardButton(text="🔙 ᴋᴇᴍʙᴀʟɪ", callback_data="emiko_")
                  ]
                 ]
             ),
@@ -589,7 +589,7 @@ def get_help(update: Update, context: CallbackContext):
             chat.id,
             text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="⭅ ᴋᴇᴍʙᴀʟɪ", callback_data="emiko_support")]]
+                [[InlineKeyboardButton(text="🔙 ᴋᴇᴍʙᴀʟɪ", callback_data="emiko_support")]]
             ),
         )
 
@@ -661,7 +661,7 @@ def settings_button(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                text="Go Back",
+                                text="ᴋᴇᴍʙᴀʟɪ",
                                 callback_data="stngs_back({})".format(chat_id),
                             )
                         ]
@@ -763,7 +763,7 @@ def donate(update: Update, context: CallbackContext):
 
         if OWNER_ID != 1252482197:
             update.effective_message.reply_text(
-                "I'm free for everyone ❤️ If you wanna make me smile, just join"
+                "sᴀʏᴀ ʙᴇʙᴀs ᴜɴᴛᴜᴋ sᴇᴍᴜᴀ ᴏʀᴀɴɢ ☝ᴊɪᴋᴀ ᴀɴᴅᴀ ɪɴɢɪɴ ᴍᴇᴍʙᴜᴀᴛ sᴀʏᴀ ᴛᴇʀsᴇɴʏᴜᴍ, ʙᴇʀɢᴀʙᴜɴɢ sᴀᴊᴀ"
                 "[My Channel]({})".format(DONATION_LINK),
                 parse_mode=ParseMode.MARKDOWN,
             )
@@ -810,7 +810,7 @@ def main():
         try:
             dispatcher.bot.sendMessage(
                 f"@{SUPPORT_CHAT}", 
-                "👋 Hi, i'm alive.",
+                "👋 ʜᴀʟᴏ ᴢᴏɪᴅ ᴀᴋᴛɪғ ᴋᴀᴡᴀɴ",
                 parse_mode=ParseMode.MARKDOWN
             )
         except Unauthorized:
