@@ -88,8 +88,8 @@ PM_START_TEXT = """
 ɴᴀᴍᴀ ᴋᴜ ᴢᴏɪᴅ x ʀᴏʙᴏᴛ [✨](https://telegra.ph/file/1bc68bbab8c136927fdc7.jpg)
 ᴀᴋᴜ ᴀᴅᴀʟᴀʜ ʙᴏᴛ ᴍᴀɴᴀɢᴇ + ᴍᴜsɪᴄ ᴜɴᴛᴜᴋ ᴍᴇɴɢᴇʟᴏʟᴀ ɢʀᴏᴜᴘ ᴀɴᴅᴀ ᴅᴇɢᴀɴ ʙᴇʙᴇʀᴀᴘᴀ ғɪᴛᴜʀ.
 ──────────────────────
-◈ *ᴜᴘᴛɪᴍᴇ:* `{}`
-◈ ᴛᴇʟᴀʜ ᴅɪɢᴜɴᴀᴋᴀɴ  `{}` *ᴘᴇɴɢɢᴜɴᴀ, ᴅɪ * `{}` *ɢʀᴏᴜᴘ*
+◈ *ᴜᴘᴛɪᴍᴇ:* {}
+◈ ᴛᴇʟᴀʜ ᴅɪɢᴜɴᴀᴋᴀɴ  {} *ᴘᴇɴɢɢᴜɴᴀ, ᴅɪ * {} *ɢʀᴏᴜᴘ*
 ──────────────────────
 ᴛᴇᴋᴀɴ /help ᴜɴᴛᴜᴋ ᴍᴇʟɪʜᴀᴛ ᴅᴀꜰᴛᴀʀ ᴘᴇʀɪɴᴛᴀʜ ʏᴀɴɢ ᴛᴇʀꜱᴇᴅɪᴀ.
 """
@@ -97,11 +97,7 @@ PM_START_TEXT = """
 buttons = [
     [
         InlineKeyboardButton(
-            text="➕️ ᴛᴀᴍʙᴀʜᴋᴀɴ ᴀᴋᴜ ᴋᴇ ɢʀᴏᴜᴘ ➕️", url="t.me/ZoidsXRobot_bot?startgroup=true"
-        ),
-    ],    
-    [   
-        InlineKeyboardButton(text="💌 ɢʀᴏᴜᴘ", url="t.me/Dunia_VirtualZ"
+            text="➕➕💌 ɢʀᴏᴜᴘ", url="t.me/Dunia_VirtualZ"
         ),
         InlineKeyboardButton(
             text="📣 ᴄʜᴀɴɴᴇʟ", url="t.me/ZOIDs_Robot"
@@ -110,7 +106,8 @@ buttons = [
     [
         InlineKeyboardButton(text="❓ʙᴀɴᴛᴜᴀɴ", callback_data="emiko_support"
         ),
-
+    ],
+]
 
 HELP_STRINGS = """
 Klik tombol di bawah ini untuk mendapatkan deskripsi tentang fitur manage bot Zoids.
