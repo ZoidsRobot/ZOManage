@@ -14,11 +14,11 @@ PHOTO = "https://telegra.ph/file/ff77c532845fb916f44cd.jpg"
 @register(pattern=("/alive"))
 async def awake(event):
   TEXT = f"**Hi [{event.sender.first_name}](tg://user?id={event.sender.id}), I'm Zoids Robot.** \n\n"
-  TEXT += "✘ **I'm Working Properly** \n\n"
-  TEXT += f"✘ **My Master : [sena-ex](https://t.me/excrybaby)** \n\n"
-  TEXT += f"✘ **Library Version :** `{telever}` \n\n"
-  TEXT += f"✘ **Telethon Version :** `{tlhver}` \n\n"
-  TEXT += f"✘ **Pyrogram Version :** `{pyrover}` \n\n"
-  TEXT += "**Thanks For Adding Me Here 🔥**"
-  BUTTON = [[Button.url("ʜᴇʟᴘ", "https://t.me/ZoidsXRobot_bot?start=help"), Button.url("sᴜᴘᴘᴏʀᴛ", "https://t.me/ZoidsXRobotLog")]]
+  TEXT += "✘ **ᴀᴋᴜ sᴇʟᴀʟᴜ ʙᴇᴋᴇʀᴊᴀ** \n\n"
+  TEXT += f"✘ **ᴍʏ ʟᴏʀᴅ : [ᴢᴏɪᴅ](https://t.me/EROR_404_NF)** \n\n"
+  TEXT += f"✘ **ʟɪʙʀᴀʀʏ ᴠᴇʀsɪᴏɴ :** `{telever}` \n\n"
+  TEXT += f"✘ **ᴛᴇʟᴇᴛʜᴏɴ ᴠᴇʀsɪᴏɴ :** `{tlhver}` \n\n"
+  TEXT += f"✘ **ᴘʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ :** `{pyrover}` \n\n"
+  TEXT += "**ᴛᴇʀɪᴍᴀᴋᴀsɪʜ sᴜᴅᴀʜ ᴍᴇɴᴀᴍʙᴀʜᴋᴀɴ ᴋᴜ ᴅɪ sɪɴɪ 🔥**"
+  BUTTON = [[Button.url("ʜᴇʟᴘ", "https://t.me/ZoidsXRobot_bot?start=help"), Button.url("sᴜᴘᴘᴏʀᴛ", "https://t.me/Dunia_VirtualZ")]]
   await tbot.send_file(event.chat_id, PHOTO, caption=TEXT,  buttons=BUTTON)
