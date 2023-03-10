@@ -1,166 +1,178 @@
-from typing import List, Optional
-
-from EmikoRobot import LOGGER
-from EmikoRobot.modules.users import get_user_id
-from telegram import Message, MessageEntity
-from telegram.error import BadRequest
-
-
-def id_from_reply(message):
-    prev_message = message.reply_to_message
-    if not prev_message:
-        return None, None
-    user_id = prev_message.from_user.id
-    res = message.text.split(None, 1)
-    if len(res) < 2:
-        return user_id, ""
-    return user_id, res[1]
+from EmikoRobot.modules.disable import (
+    DisableAbleCommandHandler,
+    DisableAbleMessageHandler,
+)
+from telegram.ext import (
+    CommandHandler,
+    MessageHandler,
+    CallbackQueryHandler,
+    InlineQueryHandler,
+)
+from telegram.ext.filters import MessageFilter
+from EmikoRobot import dispatcher as d, LOGGER
+from typing import Optional, Union, List
 
 
-def extract_user(message: Message, args: List[str]) -> Optional[int]:
-    return extract_user_and_text(message, args)[0]
+class EmikoHandler:
+    def __init__(self, d):
+        self._dispatcher = d
 
+    def command(
+        self,
+        command: str,
+        filters: Optional[MessageFilter] = None,
+        admin_ok: bool = False,
+        pass_args: bool = False,
+        pass_chat_data: bool = False,
+        run_async: bool = True,
+        can_disable: bool = True,
+        group: Optional[Union[int,str]] = 40,
+    ):
+        def _command(func):
+            try:
+                if can_disable:
+                    self._dispatcher.add_handler(
+                        DisableAbleCommandHandler(
+                            command,
+                            func,
+                            filters=filters,
+                            run_async=run_async,
+                            pass_args=pass_args,
+                            admin_ok=admin_ok,
+                        ),
+                        group,
+                    )
+                else:
+                    self._dispatcher.add_handler(
+                        CommandHandler(
+                            command,
+                            func,
+                            filters=filters,
+                            run_async=run_async,
+                            pass_args=pass_args,
+                        ),
+                        group,
+                    )
+                LOGGER.debug(
+                    f"[EMIKOCMD] Loaded handler {command} for function {func.__name__} in group {group}"
+                )
+            except TypeError:
+                if can_disable:
+                    self._dispatcher.add_handler(
+                        DisableAbleCommandHandler(
+                            command,
+                            func,
+                            filters=filters,
+                            run_async=run_async,
+                            pass_args=pass_args,
+                            admin_ok=admin_ok,
+                            pass_chat_data=pass_chat_data,
+                        )
+                    )
+                else:
+                    self._dispatcher.add_handler(
+                        CommandHandler(
+                            command,
+                            func,
+                            filters=filters,
+                            run_async=run_async,
+                            pass_args=pass_args,
+                            pass_chat_data=pass_chat_data,
+                        )
+                    )
+                LOGGER.debug(
+                    f"[EMIKOCMD] Loaded handler {command} for function {func.__name__}"
+                )
 
-def extract_user_and_text(
-    message: Message,
-    args: List[str],
-) -> (Optional[int], Optional[str]):
-    prev_message = message.reply_to_message
-    split_text = message.text.split(None, 1)
+            return func
 
-    if len(split_text) < 2:
-        return id_from_reply(message)  # only option possible
+        return _command
 
-    text_to_parse = split_text[1]
+    def message(
+        self,
+        pattern: Optional[str] = None,
+        can_disable: bool = True,
+        run_async: bool = True,
+        group: Optional[Union[int,str]] = 60,
+        friendly=None,
+    ):
+        def _message(func):
+            try:
+                if can_disable:
+                    self._dispatcher.add_handler(
+                        DisableAbleMessageHandler(
+                            pattern, func, friendly=friendly, run_async=run_async
+                        ),
+                        group,
+                    )
+                else:
+                    self._dispatcher.add_handler(
+                        MessageHandler(pattern, func, run_async=run_async), group
+                    )
+                LOGGER.debug(
+                    f"[EMIKOMSG] Loaded filter pattern {pattern} for function {func.__name__} in group {group}"
+                )
+            except TypeError:
+                if can_disable:
+                    self._dispatcher.add_handler(
+                        DisableAbleMessageHandler(
+                            pattern, func, friendly=friendly, run_async=run_async
+                        )
+                    )
+                else:
+                    self._dispatcher.add_handler(
+                        MessageHandler(pattern, func, run_async=run_async)
+                    )
+                LOGGER.debug(
+                    f"[EMIKOMSG] Loaded filter pattern {pattern} for function {func.__name__}"
+                )
 
-    text = ""
+            return func
 
-    entities = list(message.parse_entities([MessageEntity.TEXT_MENTION]))
-    ent = entities[0] if entities else None
-    # if entity offset matches (command end/text start) then all good
-    if entities and ent and ent.offset == len(message.text) - len(text_to_parse):
-        ent = entities[0]
-        user_id = ent.user.id
-        text = message.text[ent.offset + ent.length :]
+        return _message
 
-    elif len(args) >= 1 and args[0][0] == "@":
-        user = args[0]
-        user_id = get_user_id(user)
-        if not user_id:
-            message.reply_text(
-                "No idea who this user is. You'll be able to interact with them if "
-                "you reply to that person's message instead, or forward one of that user's messages.",
+    def callbackquery(self, pattern: str = None, run_async: bool = True):
+        def _callbackquery(func):
+            self._dispatcher.add_handler(
+                CallbackQueryHandler(
+                    pattern=pattern, callback=func, run_async=run_async
+                )
             )
-            return None, None
-        res = message.text.split(None, 2)
-        if len(res) >= 3:
-            text = res[2]
-
-    elif len(args) >= 1 and args[0].isdigit():
-        user_id = int(args[0])
-        res = message.text.split(None, 2)
-        if len(res) >= 3:
-            text = res[2]
-
-    elif prev_message:
-        user_id, text = id_from_reply(message)
-
-    else:
-        return None, None
-
-    try:
-        message.bot.get_chat(user_id)
-    except BadRequest as excp:
-        if excp.message in ("User_id_invalid", "Chat not found"):
-            message.reply_text(
-                "I don't seem to have interacted with this user before - please forward a message from "
-                "them to give me control! (like a voodoo doll, I need a piece of them to be able "
-                "to execute certain commands...)",
+            LOGGER.debug(
+                f"[EMIKOCALLBACK] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
             )
-        else:
-            LOGGER.exception("Exception %s on user %s", excp.message, user_id)
+            return func
 
-        return None, None
+        return _callbackquery
 
-    return user_id, text
-
-
-def extract_text(message) -> str:
-    return (
-        message.text
-        or message.caption
-        or (message.sticker.emoji if message.sticker else None)
-    )
-
-
-def extract_unt_fedban(
-    message: Message,
-    args: List[str],
-) -> (Optional[int], Optional[str]):
-    prev_message = message.reply_to_message
-    split_text = message.text.split(None, 1)
-
-    if len(split_text) < 2:
-        return id_from_reply(message)  # only option possible
-
-    text_to_parse = split_text[1]
-
-    text = ""
-
-    entities = list(message.parse_entities([MessageEntity.TEXT_MENTION]))
-    ent = entities[0] if entities else None
-    # if entity offset matches (command end/text start) then all good
-    if entities and ent and ent.offset == len(message.text) - len(text_to_parse):
-        ent = entities[0]
-        user_id = ent.user.id
-        text = message.text[ent.offset + ent.length :]
-
-    elif len(args) >= 1 and args[0][0] == "@":
-        user = args[0]
-        user_id = get_user_id(user)
-        if not user_id and not isinstance(user_id, int):
-            message.reply_text(
-                "I don't have that user in my db.  "
-                "You'll be able to interact with them if you reply to that person's message instead, or forward one of that user's messages.",
+    def inlinequery(
+        self,
+        pattern: Optional[str] = None,
+        run_async: bool = True,
+        pass_user_data: bool = True,
+        pass_chat_data: bool = True,
+        chat_types: List[str] = None,
+    ):
+        def _inlinequery(func):
+            self._dispatcher.add_handler(
+                InlineQueryHandler(
+                    pattern=pattern,
+                    callback=func,
+                    run_async=run_async,
+                    pass_user_data=pass_user_data,
+                    pass_chat_data=pass_chat_data,
+                    chat_types=chat_types,
+                )
             )
-            return None, None
-        res = message.text.split(None, 2)
-        if len(res) >= 3:
-            text = res[2]
-
-    elif len(args) >= 1 and args[0].isdigit():
-        user_id = int(args[0])
-        res = message.text.split(None, 2)
-        if len(res) >= 3:
-            text = res[2]
-
-    elif prev_message:
-        user_id, text = id_from_reply(message)
-
-    else:
-        return None, None
-
-    try:
-        message.bot.get_chat(user_id)
-    except BadRequest as excp:
-        if excp.message in ("User_id_invalid", "Chat not found") and not isinstance(
-            user_id,
-            int,
-        ):
-            message.reply_text(
-                "I don't seem to have interacted with this user before "
-                "please forward a message from them to give me control! "
-                "(like a voodoo doll, I need a piece of them to be able to execute certain commands...)",
+            LOGGER.debug(
+                f"[EMIKOINLINE] Loaded inlinequery handler with pattern {pattern} for function {func.__name__} | PASSES USER DATA: {pass_user_data} | PASSES CHAT DATA: {pass_chat_data} | CHAT TYPES: {chat_types}"
             )
-            return None, None
-        if excp.message != "Chat not found":
-            LOGGER.exception("Exception %s on user %s", excp.message, user_id)
-            return None, None
-        if not isinstance(user_id, int):
-            return None, None
+            return func
 
-    return user_id, text
+        return _inlinequery
 
 
-def extract_user_fban(message: Message, args: List[str]) -> Optional[int]:
-    return extract_unt_fedban(message, args)[0]
+emikocmd = EmikoHandler(d).command
+emikomsg = EmikoHandler(d).message
+emikocallback = EmikoHandler(d).callbackquery
+emikoinline = EmikoHandler(d).inlinequery
