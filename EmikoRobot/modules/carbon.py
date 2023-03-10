@@ -24,27 +24,27 @@ async def carbon_func(_, message):
     carbon.close()
 
 
-MEMEK = "https://telegra.ph/file/ff77c532845fb916f44cd.jpg"
+MEMEK = "https://telegra.ph/file/80dcfa24cd9fd3d80485b.jpg"
 
 @pbot.on_message(filters.command("repo"))
 async def repo(_, message):
     await message.reply_photo(
         photo=MEMEK,
-        caption=f"""✨ **Hey I'm Zoids Robot** 
+        caption=f"""✨ **ʜᴇʏ sᴀʏᴀ ᴢᴏɪᴅ x ʀᴏʙᴏᴛ** 
 
-**Owner repo : [zoids](https://t.me/Eror_404_NF)**
-**Python Version :** `{y()}`
-**Library Version :** `{o}`
-**Telethon Version :** `{s}`
-**Pyrogram Version :** `{z}`
+**ᴘᴇᴍɪʟɪᴋ : [zoids](https://t.me/Eror_404_NF)**
+**ᴘʏᴛʜᴏɴ ᴠᴇʀsɪᴏɴ :** `{y()}`
+**ʟɪʙʀᴀʀʏ ᴠᴇʀsɪᴏɴ :** `{o}`
+**ᴛᴇʟᴇᴛʜᴏɴ ᴠᴇʀsɪᴏɴ :** `{s}`
+**ᴘʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ :** `{z}`
 
-**Create your own with click button bellow.**
+**ᴍᴀᴜ ʟɪᴀᴛ ɪɴғᴏ ʟᴀɪɴɴʏᴀ? ᴋʟɪᴋ ᴛᴏᴍʙᴏʟ ᴅɪ ʙᴀᴡᴀʜ.**
 """,
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "ʀᴇᴘᴏ", url="https://github.com"), 
+                        "", url="https://github.com"), 
                     InlineKeyboardButton(
                         "sᴜᴘᴘᴏʀᴛ", url="https://t.me/ZoidsXRobotLog")
                 ]
