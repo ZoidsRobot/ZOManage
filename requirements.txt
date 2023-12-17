@@ -74,7 +74,7 @@ better_profanity
 textblob 
 nudepy
 nekos.py
-motor==3.2.0
+motor
 gpytranslate==1.5.1
 fontTools
 opencv-python-headless
