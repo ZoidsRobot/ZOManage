@@ -85,4 +85,4 @@ fuzzysearch
 img2pdf
 multicolorcaptcha
 git+https://github.com/python-telegram-bot/ptbcontrib.git
-httpcore====0.9.0
+httpcore====0.9.1
