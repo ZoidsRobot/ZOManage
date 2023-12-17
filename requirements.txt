@@ -37,7 +37,7 @@ telegraph
 heroku3
 spamwatch
 alphabet_detector
-pyrate-limiter
+pyrate-limiter==2.0.0
 cachetools
 ujson
 pretty_errors
