@@ -23,7 +23,7 @@ psutil
 aiohttp==3.8.4
 Pillow
 CurrencyConverter
-googletrans==4.0.0rc1
+googletrans==1.5.1
 google-trans-new
 jikanpy
 speedtest-cli
