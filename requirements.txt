@@ -86,3 +86,4 @@ img2pdf
 multicolorcaptcha
 git+https://github.com/python-telegram-bot/ptbcontrib.git
 httpcore==0.9.1
+dnspython==2.3.0
