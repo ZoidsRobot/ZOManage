@@ -23,7 +23,7 @@ psutil
 aiohttp==3.8.4
 Pillow
 CurrencyConverter
-googletrans==1.5.1
+googletrans==4.0.0rc1
 google-trans-new
 jikanpy
 speedtest-cli
@@ -85,4 +85,4 @@ fuzzysearch
 img2pdf
 multicolorcaptcha
 git+https://github.com/python-telegram-bot/ptbcontrib.git
-
+httpcore==0.17.3
